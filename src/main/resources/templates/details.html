@@ -1,0 +1,171 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate = "layout/main.html">
+<div layout:fragment = "mainContent">
+    <div th:if = "${request!=null}">
+    <span th:if="${request.handled!=true}">
+        <div class="row">
+        <div class="col-8 mx-auto">
+            <form th:action="@{'/updateRequest'}" method="post">
+                <input type="hidden" th:value="${request.id}" name="id">
+                <div class="row mt-3">
+                    <div class="col-12">
+                            <h3 class="text-danger fw-bolder mx-auto">***Новая необработанная заявка***</h3>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <label>NAME : </label>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <input type="text" class="form-control" readonly th:value="${request.userName}" name="userName" required>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <label>COURSE : </label>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                         <select  class="form-control" name="course_id" readonly="">
+                            <option th:each="course : ${courses}" th:value="${course.id}"
+                                    th:text="${course.name}" th:selected="${course.id==request.Course.id}">
+
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <label>PHONE NUMBER : </label>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <input type="text" class="form-control" readonly th:value="${request.phoneNumber}" name="phoneNumber" required>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <label>COMMENTARY : </label>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <input type="text" class="form-control" readonly th:value="${request.commentary}" name="commentary" required>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <button  class="btn btn-success" >UPDATE REQUEST</button>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteRequestModal">
+                            DELETE REQUEST
+                        </button>
+                    </div>
+                </div>
+            </form>
+                <div class="modal fade" id="updateRequestModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form th:action="@{'/deleteRequest'}" method="post">
+                        <input type="hidden" th:value="${request.id}" name="id">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Delete Request</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Are you sure?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
+                            <button class="btn btn-danger">YES</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </span>
+        <span th:unless="${request.handled!=true}">
+            <div class="row">
+        <div class="col-8 mx-auto">
+                <input type="hidden" th:value="${request.id}" name="id">
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <label>NAME : </label>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <input type="text" class="form-control" readonly th:value="${request.userName}" name="userName" required>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <label>COURSE : </label>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <select  class="form-control" name="course_id" readonly="">
+                            <option th:each="course : ${courses}" th:value="${course.id}"
+                            th:text="${course.name}" th:selected="${course.id==request.Course.id}" readonly="">
+
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <label>PHONE NUMBER : </label>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <input type="text" class="form-control" readonly th:value="${request.phoneNumber}" name="phoneNumber" required>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <label>COMMENTARY : </label>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <input type="text" class="form-control"  readonly th:value="${request.commentary}" name="commentary" required>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteRequestModal">
+                            DELETE REQUEST
+                        </button>
+                    </div>
+                </div>
+                </div>
+        <div class="modal fade" id="deleteRequestModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form th:action="@{'/deleteRequest'}" method="post">
+                        <input type="hidden" th:value="${request.id}" name="id">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Delete Request</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Are you sure?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
+                            <button class="btn btn-danger">YES</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+        </span>
+</div>
+</div>
+</html>

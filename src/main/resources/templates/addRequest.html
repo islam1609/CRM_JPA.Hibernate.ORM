@@ -1,0 +1,60 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate = "layout/main.html">
+<div layout:fragment = "mainContent">
+    <div class="row">
+        <div class="col-8 mx-auto">
+            <form th:action="@{'/addRequest'}" method="post">
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <label>NAME : </label>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="userName" required placeholder="Name">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <label>COURSE : </label>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12" >
+                        <select  class="form-control" name="course_id" >
+                            <option th:each="course : ${courses}" th:value="${course.id}" th:text="${course.name}">
+                                Java Course
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <label>PHONE NUMBER : </label>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="phoneNumber" placeholder="+7(___)_______" required>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <label>COMMENTARY : </label>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <input type="" class="form-control" name="commentary" placeholder="Commentary" required>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <button class="btn btn-success">ADD REQUEST</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</html>
